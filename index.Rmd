@@ -5,82 +5,56 @@ output: html_document
 
 ### Introduction
 
-An introduction of the data and a description of the trends/books/items you are choosing to analyze (and why!)
+As a kid, I would only read biographies and autobiographies for class assignments and as a result, I never saw why I would read biographies on my own free time. As I've grown up, I've gradually read more and more memoirs of people I admire and I find the biography/autobiography genre to indeed be a valuable one that allows readers to gain insights into the lives and journeys of historical figures. Especially as we're going through current challenging circumstances, it's helpful to know how these figures got through their own set of challenges in the past and in the present. Most of the time, I've borrowed biographies/autobiographies from public libraries because they tend to be pricier to purchase in bookstores. Public libraries have long had the reputation of providing open access to learning and knowledge. The Seattle Public Library is unique compared to its counterparts in that it has created a database of the materials patrons borrow from their libraries both physically and digitally. Among the plethora of memoirs, autobiographies, and biographies written by both celebrities, scholars, and non-celebrities, I was interested in knowing which authors people read most and which medium people prefer to experience autobiographies, biographies, and memoirs.
 
 ### Summary Information
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
-
-These will likely be calculated using your DPLYR skills, answering questions such as:
-
-- What is the average number of checkouts for each item?
-- What is the month or year with the most/least checkouts for a book that you're interested in?
-- What is the month or year with the most/least checkouts for ebooks?
-- How has the number of print book checkouts changed over time?
-
-Feel free to calculate and report values that you find relevant.
+```{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("summary.R")}
+```
+Curated from the Seattle Public Library database, this dataset of biographies and autobiographies checkouts feature 712, 953 entries borrowed from 2005 to 2023. Possibly due to the release of multiple celebrity memoirs in the past year, `r most_year` was the year with the highest number of checkouts for biographies and autobiographies. Largely derived from the success of her book, Becoming, `r most_amt_author`'s autobiographies have been checked out the most in total. Looking back at 2022 however, the author with the most amount of checkouts in 2022 was `r max_authors_2022` who wrote *Crying in H-Mart*. Ebooks and audiobooks are the most preferred mediums for reading biographies and autobiographies as the proportion of ebooks is `r prop_of_ebooks`, close to half of the total checkouts for biographies and autobiographies. The second most is the proportion of audiobooks,  `r prop_of_audiobooks`. Physical books are the least preferred, amounting to only `r prop_of_physical` of total checkouts for biographies and autobiographies.
 
 ### The Dataset
 
 - Who collected/published the data?  
-- What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
-- How was the data collected or generated?  
-- Why was the data collected?  
-- What, if any, ethical questions do you need to consider when working with this data?  
-- What are possible limitations or problems with this data?   (at least 200 words)
 
+The Seattle Public Library collected and published the data. Specifically, David Christensen and George Legrady are said to have spearheaded this effort of collecting and publishing SPL's data. George Legrady initially collected data on SPL checkouts from 2015 to 2017 for an art installation. 
+
+- What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
+
+This data includes monthly counts of books that have the subject label of "Biography and Autobiography". The database itself updates every month, but the current dataset used for this project has dates from April 2005 to January 2023. It has 13 columns and 712953 rows. Among these columns are the Checkout Year, Checkout Month, Material Type, Creator, Checkouts, Publisher, Source of Material, ISBN Code, and Subjects according to the Library of Congress.
+
+- How was the data collected or generated? 
+
+Based on a report published by the SPL in 2017, this data was compiled from past and present records of checkouts. Past data on physical book checkouts from April 2005 to September 2016 comes from the Legrady artwork data archives. The source of data on checkouts from October 1 2016 to the present is Horizon ILS. For data on digital checkouts, the various vendors supply information about usage and the checkouts through the respective company. The data is completely anonymized, so it does not include information or identifiers of the individual SPL borrowers.
+
+- Why was the data collected? 
+
+The Seattle Public Library is one of few libraries that has collected and published open data about book checkouts that everyone can access and analyze. Internally, the Seattle Public Library uses this data to decide what books to buy more of.
+
+- What, if any, ethical questions do you need to consider when working with this data?  
+
+Because I'm not familiar with all the Creators included in this dataset, there may be some writers who have written biographies and autobiographies whose work is unethical or possibly controversial. 
+
+- What are possible limitations or problems with this data? 
+
+In this dataset, there are multiple spelling inconsistencies when writing the names of Titles or the names of Creators. Because of the variations in labeling these variables, it can create incorrect representations and depictions when analyzing data on Titles and Creators. For instance, Michelle Obama may be considered to only have 30,000 books checked out, but she has an additional 10,000 books registered under the name Obama, Michelle 1964-. There are also additional amounts of books that are unaccounted for. Due to the variety of variations, it's difficult to filter out each inconsistency by code so there are still a sizable number of variations that remain which I can't account for through code. In addition, it made it difficult to group the author to the book that they wrote because of the sheer number of variations between Abridged and Unabridged copies. It also prevented me from being able to count the number of books each author has written. Another variable which I was hoping to analyze this data through was the author's demographics which the dataset does not make available currently. This would be an interesting dimension to analyze library checkouts to see the demographics of authors most read and how it breaks down across categories of race, gender, and age. Another limitation to this current dataset is that there isn’t branch specific data on books borrowed. This inclusion could allow for a geographic analysis of books borrowed and how it ranges across the numerous branches of the Seattle Public Library.
 
 ### First Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The first chart that you will create and include will show the trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, warning = FALSE, code = readLines("chart1_example.R")}
+```{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("chart1_example.R")}
 ```
+
+This line chart examines the trends of the top 8 authors of biographies and autobiographes over time. Oftentimes, people measure the success of an autobiography/biography based on the popularity of its author or its focus. This hypothesis is proven true with Michelle Obama reigning in total checkouts, however it becomes a close competition with Ibram X. Kendi who surprassed the former First Lady Michelle Obama for a period of time in 2020. This sharp peak reflects the renewed interest in Ibram X. Kendi's book, *How to be an Anti-Racist* during the summer of 2020 protests. Former President Barack Obama had an increase of checkouts at the end of 2020 and towards the beginning of 2021 that also surpassed his wife's checkouts and this reflects the release of his new biography, *A Promised Land*. Tara Westover is the fourth author with high trends of checkouts. Westover isn't a celebrity in the mainstream, but her memoir *Educated* gained a huge amount of notoriety. The bottom half of the line chart features authors with more consistent numbers of checkouts over the years, some of these authors are biographers.Based on the chart, the line chart reveals that checkouts reached an all-time high in the late 2010s to the present.
 
 ### Second Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
-
-The second chart that you will create and include will show another trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
-
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
-
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+```{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("chart2_example.R")}
 ```
 
-### Your Choice
+This line chart examines the medium preferences for experiencing autobiographies and biographies and how that preference has changed over time. Even in the early 2000s, the chart reveals that physical copies lagged behind both ebooks and audiobooks. This is interesting to see that physical books have remained the least preferred medium for biographies consistently over the last decade. Noting the decline of physical books to nearly 0 during the pandemic, physical books have returned gradually to their pre-pandemic levels. Another interesting trend is that the chart shows that relatively recently in the last two years, audiobooks has now become the dominant type for biography and autobiography checkkouts. As technology progresses, the capabilities of audiobooks does as well and it seems that people are beginning to listen to biographies and autobiographies more.
 
-The last chart is up to you. It could be a line plot, scatter plot, histogram, bar plot, stacked bar plot, and more. Here are some requirements to help guide your design:
-
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
-
-Here's an example of how to run an R script inside an RMarkdown file:
-
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
+### Fal's Biography Book Picks
+```{r, echo = FALSE, warning = FALSE, message = FALSE, code = readLines("chart3.R")}
 ```
 
-
+For this chart, I created a line chart over time to demonstrate some of the highly rated biographies and autobiographies that I've read. I was interested in seeing the overall popularity of the biographies and autobiographies that I've read. It seems that Trevor Noah's autobiography has the highest number of checkouts out of all the authors I included with Maya Angelou having the seocond most. I was surprised to see that the checkouts for Maya Angelou's books weren't higher because she has written nearly a dozen autobiographies. Jacqueline Woodson, Haben Girma, and Imani Perry have a consistent rate of checkouts over time. 
